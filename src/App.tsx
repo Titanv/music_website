@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import titan_piano_shot from "./titan_piano_shot.JPG"
 export default function MusicianWebsite() {
   const [submitting, setSubmitting] = useState(false);
 
@@ -79,11 +79,11 @@ export default function MusicianWebsite() {
       </header>
 
       {/* Hero Section */}
-      <section className="h-screen relative overflow-hidden">
+      <section className="h-[80vh] relative overflow-hidden">
         <img
-          src="/your-photo.jpg"
+          src={titan_piano_shot}
           alt="Titan Vision"
-          className="w-full h-full object-cover animate-hero"
+          className="w-full h-full object-cover object-top animate-hero"
           style={{
             animationName: "hero-scroll",
             animationDuration: "1s",
