@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hero-scroll {
+    0% {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.1) translateY(-30%);
+      opacity: 0.8;
+    }
+  }
+}
+
+.animate-hero {
+  animation-name: hero-scroll;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  /* For scroll-linked animation, browser support is limited */
+  /* animation-timeline: scroll();
+     animation-range: 0vh 100vh; */
+}
