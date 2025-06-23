@@ -1,250 +1,285 @@
-import { useEffect, useRef, useState } from "react";
-import "./index.css";
+import { useEffect, useState } from "react";
 
-function Section({ id, children }) {
+export default function MusicianWebsite() {
   const [submitting, setSubmitting] = useState(false);
 
-  const ref = useRef();
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          ref.current.classList.add("opacity-100", "translate-y-0");
-          obs.unobserve(e.target);
-        }
+    const nav = document.getElementById("nav");
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("opacity-100", "translate-y-0");
+            observer.unobserve(entry.target);
+          }
+        });
       },
       { threshold: 0.2 }
     );
-    obs.observe(ref.current);
-  }, []);
-  return (
-    <section
-      ref={ref}
-      id={id}
-      className="opacity-0 translate-y-12 transition-all duration-700 py-16 max-w-4xl mx-auto"
-    >
-      {children}
-    </section>
-  );
-}
 
-export default function App() {
-  const nav = useRef();
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.5)
-        nav.current.classList.add("bg-white/70", "backdrop-blur-md");
-      else nav.current.classList.remove("bg-white/70", "backdrop-blur-md");
+    sections.forEach((section) => observer.observe(section));
+
+    const handleScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.5) {
+        nav?.classList.add("visible");
+      } else {
+        nav?.classList.remove("visible");
+      }
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Smooth scroll helper
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="bg-bg text-text font-sans min-h-screen">
+    <div className="min-h-screen bg-[#E6E6E6] text-[#532E1C] font-sans scroll-smooth">
+      {/* Navigation */}
       <header
-        ref={nav}
-        className="fixed w-full z-50 p-4 transition-all duration-500"
+        id="nav"
+        className="fixed top-0 w-full z-50 p-4 bg-[#0F0F0F]/80 backdrop-blur-md opacity-0 transition-opacity duration-500 flex justify-between items-center"
       >
-        <nav className="flex justify-center space-x-8">
+        <div>
+          <h1
+            className="text-3xl font-bold text-[#C5A880] cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Titan Vision
+          </h1>
+          <p className="text-sm mt-0 text-[#532E1C]">
+            Composer | Performer | Visionary
+          </p>
+        </div>
+
+        <nav className="space-x-6 text-[#C5A880] font-semibold">
           {[
-            "hero",
-            "bio",
+            "about",
             "music",
             "videos",
             "events",
+            "past-performances",
             "contact",
-            "follow",
-          ].map((id) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className="uppercase text-sm text-border hover:text-accent"
+          ].map((section) => (
+            <button
+              key={section}
+              onClick={() => scrollToSection(section)}
+              className="hover:text-yellow-400 transition"
             >
-              {id}
-            </a>
+              {section
+                .replace("-", " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase())}
+            </button>
           ))}
         </nav>
       </header>
 
-      <main className="pt-16">
-        {/* Hero */}
-        <Section id="hero">
-          <div className="h-screen relative overflow-hidden rounded-lg shadow-lg">
-            <img
-              src="/your-photo.jpg"
-              alt="Hero"
-              className="w-full h-full object-cover animate-[hero-scroll_1s_linear_both]"
-              style={{
-                animationTimeline: "scroll()",
-                animationRange: "0vh 100vh",
-              }}
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30">
-              <h1 className="text-5xl font-bold text-accent">Your Name</h1>
-              <p className="mt-2 text-xl">Composer • Performer • Visionary</p>
-            </div>
-          </div>
-        </Section>
+      {/* Hero Section */}
+      <section className="h-screen relative overflow-hidden">
+        <img
+          src="/your-photo.jpg"
+          alt="Titan Vision"
+          className="w-full h-full object-cover animate-hero"
+          style={{
+            animationName: "hero-scroll",
+            animationDuration: "1s",
+            animationTimingFunction: "linear",
+            animationFillMode: "both",
+          }}
+        />
+      </section>
 
-        {/* Bio */}
-        <Section id="bio">
-          <h2 className="text-3xl font-semibold text-accent mb-4">About</h2>
-          <p>
+      {/* Main content */}
+      <main className="p-6 space-y-32 max-w-4xl mx-auto">
+        {/* About */}
+        <section
+          id="about"
+          className="opacity-0 translate-y-12 transition-all duration-700"
+        >
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">About</h2>
+          <p className="text-lg leading-relaxed text-[#532E1C]">
             Titan Vision is a NYC-based composer and multi-instrumentalist known
             for creating emotionally evocative, genre-blending compositions.
             With performances ranging from Lincoln Center to underground jazz
             venues, Titan channels his lived experiences into soundscapes that
             inspire, challenge, and move audiences.
           </p>
-        </Section>
+        </section>
 
-        {/* Music */}
-        <Section id="music">
-          <h2 className="text-3xl font-semibold text-accent mb-4">Listen</h2>
-          <div className="space-y-6">
+        {/* Listen */}
+        <section
+          id="music"
+          className="opacity-0 translate-y-12 transition-all duration-700"
+        >
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">Listen</h2>
+          <div className="space-y-4">
             <iframe
-              title="Spotify"
+              className="w-full h-20 rounded shadow"
               src="https://open.spotify.com/embed/artist/your-spotify-id"
-              className="w-full h-24 rounded shadow"
               allow="encrypted-media"
+              title="Spotify"
             ></iframe>
             <iframe
-              title="SoundCloud"
+              className="w-full h-20 rounded shadow"
               src="https://soundcloud.com/your-soundcloud-id/embed"
-              className="w-full h-24 rounded shadow"
               allow="autoplay"
+              title="SoundCloud"
             ></iframe>
           </div>
-        </Section>
+        </section>
 
         {/* Videos */}
-        <Section id="videos">
-          <h2 className="text-3xl font-semibold text-accent mb-4">Watch</h2>
-          <div>
+        <section
+          id="videos"
+          className="opacity-0 translate-y-12 transition-all duration-700"
+        >
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">Watch</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <iframe
-              title="YouTube"
-              src="https://www.youtube.com/embed/your-video-id"
               className="w-full aspect-video rounded shadow"
+              src="https://www.youtube.com/embed/your-video-id"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              title="YouTube Video"
             ></iframe>
           </div>
-        </Section>
+        </section>
 
-        {/* Events */}
-        <Section id="events">
-          <h2 className="text-3xl font-semibold text-accent mb-6">
+        {/* Upcoming Shows */}
+        <section
+          id="events"
+          className="opacity-0 translate-y-12 transition-all duration-700"
+        >
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">
             Upcoming Shows
           </h2>
-          <ul className="space-y-2 pl-4 border-l-4 border-border text-neutral-600">
-            <li>
-              <strong>July 12, 2025 – Blue Note NYC</strong>: Jazz set with
-              special guests • 8:00 PM
+          <ul className="space-y-2 text-[#532E1C]">
+            <li className="border-l-4 border-[#C5A880] pl-4">
+              <p className="font-medium">July 12, 2025 - Blue Note NYC</p>
+              <p>Jazz set with special guests • 8:00 PM</p>
             </li>
-            <li>
-              <strong>August 3, 2025 – Prospect Park Bandshell</strong>:
-              Open-air orchestral concert • 7:30 PM
+            <li className="border-l-4 border-[#C5A880] pl-4">
+              <p className="font-medium">
+                August 3, 2025 - Prospect Park Bandshell
+              </p>
+              <p>Open-air orchestral concert • 7:30 PM</p>
             </li>
           </ul>
+        </section>
 
-          <h2 className="text-3xl font-semibold text-accent my-6">
+        {/* Past Performances */}
+        <section
+          id="past-performances"
+          className="opacity-0 translate-y-12 transition-all duration-700"
+        >
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">
             Past Performances
           </h2>
-          <ul className="space-y-2 pl-4 border-l-4 border-border text-neutral-600">
-            <li>
-              <strong>March 10, 2025 – Lincoln Center</strong>: Featured
-              composer in NY Young Virtuosos Showcase
+          <ul className="space-y-2 text-[#532E1C]">
+            <li className="border-l-4 border-gray-600 pl-4">
+              <p className="font-medium">March 10, 2025 - Lincoln Center</p>
+              <p>Featured composer in NY Young Virtuosos Showcase</p>
             </li>
-            <li>
-              <strong>January 15, 2025 – Harlem School of the Arts</strong>:
-              Latin Jazz Ensemble Performance
+            <li className="border-l-4 border-gray-600 pl-4">
+              <p className="font-medium">
+                January 15, 2025 - Harlem School of the Arts
+              </p>
+              <p>Latin Jazz Ensemble Performance</p>
             </li>
-            <li>
-              <strong>
-                October 22, 2024 – LaGuardia Performing Arts Center
-              </strong>
-              : Solo Piano Recital: “Valsa Infernalis” debut
+            <li className="border-l-4 border-gray-600 pl-4">
+              <p className="font-medium">
+                October 22, 2024 - LaGuardia Performing Arts Center
+              </p>
+              <p>Solo Piano Recital: “Valsa Infernalis” debut</p>
             </li>
           </ul>
-        </Section>
+        </section>
 
-        {/* Contact */}
+        {/* Contact / Booking */}
         <section
-        id="contact"
-        className="max-w-4xl mx-auto opacity-0 translate-y-12 transition-all duration-700"
-      >
-        <h2 className="text-3xl font-semibold mb-4 text-accent">Contact / Booking</h2>
-
-        <form
-          action="https://postmail.invotes.com/send"
-          method="post"
-          id="email_form"
-          className="space-y-6"
-          onSubmit={() => setSubmitting(true)}
+          id="contact"
+          className="opacity-0 translate-y-12 transition-all duration-700"
         >
-          <input
-            type="text"
-            name="subject"
-            placeholder="Subject"
-            required
-            className="w-full p-3 border border-border rounded text-text bg-bg"
-          />
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">
+            Contact / Booking
+          </h2>
 
-          <textarea
-            name="text"
-            placeholder="Message"
-            rows={5}
-            required
-            className="w-full p-3 border border-border rounded text-text bg-bg"
-          ></textarea>
-
-          {/* Hidden inputs */}
-          <input type="hidden" name="access_token" value="mc6ml1rv6f0ynfv1nl0iop8c" />
-          <input
-            type="hidden"
-            name="success_url"
-            value=".?message=Email+Successfully+Sent%21&isError=0"
-          />
-          <input
-            type="hidden"
-            name="error_url"
-            value=".?message=Email+could+not+be+sent.&isError=1"
-          />
-
-          <input
-            type="submit"
-            value={submitting ? "Sending..." : "Send"}
-            disabled={submitting}
-            id="submit_form"
-            className={`w-full cursor-pointer rounded bg-accent px-6 py-3 font-semibold text-black shadow hover:bg-yellow-500 transition ${
-              submitting ? "opacity-60 cursor-not-allowed" : ""
-            }`}
-          />
-        </form>
-
-        <p className="text-center text-xs text-gray-500 mt-2">
-          Powered by{" "}
-          <a
-            href="https://postmail.invotes.com"
-            target="_blank"
-            rel="noreferrer"
-            className="underline hover:text-accent"
+          <form
+            action="https://postmail.invotes.com/send"
+            method="post"
+            id="email_form"
+            className="space-y-6"
+            onSubmit={() => setSubmitting(true)}
           >
-            PostMail
-          </a>
-        </p>
-      </section>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              required
+              className="w-full p-3 border border-[#0F0F0F] rounded text-[#532E1C] bg-[#E6E6E6]"
+            />
 
-        {/* Follow */}
-        <Section id="follow">
-          <h2 className="text-3xl font-semibold text-accent mb-4">Follow</h2>
-          <div className="flex justify-center space-x-8 text-border">
+            <textarea
+              name="text"
+              placeholder="Message"
+              rows={5}
+              required
+              className="w-full p-3 border border-[#0F0F0F] rounded text-[#532E1C] bg-[#E6E6E6]"
+            ></textarea>
+
+            <input
+              type="hidden"
+              name="access_token"
+              value="mc6ml1rv6f0ynfv1nl0iop8c"
+            />
+            <input
+              type="hidden"
+              name="success_url"
+              value=".?message=Email+Successfully+Sent%21&isError=0"
+            />
+            <input
+              type="hidden"
+              name="error_url"
+              value=".?message=Email+could+not+be+sent.&isError=1"
+            />
+
+            <input
+              type="submit"
+              value={submitting ? "Sending..." : "Send"}
+              disabled={submitting}
+              id="submit_form"
+              className={`w-full cursor-pointer rounded bg-[#C5A880] px-6 py-3 font-semibold text-black shadow hover:bg-yellow-500 transition ${
+                submitting ? "opacity-60 cursor-not-allowed" : ""
+              }`}
+            />
+          </form>
+
+          <p className="text-center text-xs text-gray-600 mt-2">
+            Powered by{" "}
+            <a
+              href="https://postmail.invotes.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-[#C5A880]"
+            >
+              PostMail
+            </a>
+          </p>
+        </section>
+
+        {/* Social Media */}
+        <section className="opacity-0 translate-y-12 transition-all duration-700">
+          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">Follow</h2>
+          <div className="flex space-x-6 text-[#532E1C]">
             <a
               href="https://instagram.com/yourhandle"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-accent"
+              className="hover:text-[#C5A880]"
             >
               Instagram
             </a>
@@ -252,7 +287,7 @@ export default function App() {
               href="https://youtube.com/yourchannel"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-accent"
+              className="hover:text-[#C5A880]"
             >
               YouTube
             </a>
@@ -260,23 +295,49 @@ export default function App() {
               href="https://tiktok.com/@yourhandle"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-accent"
+              className="hover:text-[#C5A880]"
             >
               TikTok
             </a>
             <a
               href="mailto:youremail@example.com"
-              className="hover:text-accent"
+              className="hover:text-[#C5A880]"
             >
               Email
             </a>
           </div>
-        </Section>
-
-        <footer className="py-8 text-center text-sm text-border">
-          © {new Date().getFullYear()} Your Name. All rights reserved.
-        </footer>
+        </section>
       </main>
+
+      <footer className="text-center py-6 border-t border-gray-400 text-sm text-[#532E1C]">
+        © {new Date().getFullYear()} Titan Vision. All rights reserved.
+      </footer>
+
+      <style jsx>{`
+        @keyframes hero-scroll {
+          0% {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.1) translateY(-30%);
+            opacity: 0.8;
+          }
+        }
+
+        .animate-hero {
+          animation-name: hero-scroll;
+          animation-duration: 1s;
+          animation-timing-function: linear;
+          animation-fill-mode: both;
+          animation-timeline: scroll();
+          animation-range: 0vh 100vh;
+        }
+
+        #nav.visible {
+          opacity: 1;
+        }
+      `}</style>
     </div>
   );
 }
