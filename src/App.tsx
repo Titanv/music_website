@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 
 function Section({ id, children }) {
+  const [submitting, setSubmitting] = useState(false);
+
   const ref = useRef();
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -168,31 +170,71 @@ export default function App() {
         </Section>
 
         {/* Contact */}
-        <Section id="contact">
-          <h2 className="text-3xl font-semibold text-accent mb-4">
-            Contact / Booking
-          </h2>
-          <form className="space-y-4 max-w-lg mx-auto">
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full p-3 border border-border rounded bg-white text-text"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full p-3 border border-border rounded bg-white text-text"
-            />
-            <textarea
-              rows={5}
-              placeholder="Message"
-              className="w-full p-3 border border-border rounded bg-white text-text"
-            ></textarea>
-            <button className="bg-accent hover:bg-yellow-500 text-black font-semibold px-6 py-2 rounded shadow">
-              Send
-            </button>
-          </form>
-        </Section>
+        <section
+        id="contact"
+        className="max-w-4xl mx-auto opacity-0 translate-y-12 transition-all duration-700"
+      >
+        <h2 className="text-3xl font-semibold mb-4 text-accent">Contact / Booking</h2>
+
+        <form
+          action="https://postmail.invotes.com/send"
+          method="post"
+          id="email_form"
+          className="space-y-6"
+          onSubmit={() => setSubmitting(true)}
+        >
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            required
+            className="w-full p-3 border border-border rounded text-text bg-bg"
+          />
+
+          <textarea
+            name="text"
+            placeholder="Message"
+            rows={5}
+            required
+            className="w-full p-3 border border-border rounded text-text bg-bg"
+          ></textarea>
+
+          {/* Hidden inputs */}
+          <input type="hidden" name="access_token" value="mc6ml1rv6f0ynfv1nl0iop8c" />
+          <input
+            type="hidden"
+            name="success_url"
+            value=".?message=Email+Successfully+Sent%21&isError=0"
+          />
+          <input
+            type="hidden"
+            name="error_url"
+            value=".?message=Email+could+not+be+sent.&isError=1"
+          />
+
+          <input
+            type="submit"
+            value={submitting ? "Sending..." : "Send"}
+            disabled={submitting}
+            id="submit_form"
+            className={`w-full cursor-pointer rounded bg-accent px-6 py-3 font-semibold text-black shadow hover:bg-yellow-500 transition ${
+              submitting ? "opacity-60 cursor-not-allowed" : ""
+            }`}
+          />
+        </form>
+
+        <p className="text-center text-xs text-gray-500 mt-2">
+          Powered by{" "}
+          <a
+            href="https://postmail.invotes.com"
+            target="_blank"
+            rel="noreferrer"
+            className="underline hover:text-accent"
+          >
+            PostMail
+          </a>
+        </p>
+      </section>
 
         {/* Follow */}
         <Section id="follow">
