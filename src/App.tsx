@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import titan_piano_shot from "./titan_piano_shot.JPG"
+import PerformancesList from "./components/PerformancesList.tsx"
 export default function MusicianWebsite() {
   const [submitting, setSubmitting] = useState(false);
 
@@ -149,54 +150,9 @@ export default function MusicianWebsite() {
           </div>
         </section>
 
-        {/* Upcoming Shows */}
-        <section
-          id="events"
-          className="opacity-0 translate-y-12 transition-all duration-700"
-        >
-          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">
-            Upcoming Shows
-          </h2>
-          <ul className="space-y-2 text-[#532E1C]">
-            <li className="border-l-4 border-[#C5A880] pl-4">
-              <p className="font-medium">July 12, 2025 - Blue Note NYC</p>
-              <p>Jazz set with special guests • 8:00 PM</p>
-            </li>
-            <li className="border-l-4 border-[#C5A880] pl-4">
-              <p className="font-medium">
-                August 3, 2025 - Prospect Park Bandshell
-              </p>
-              <p>Open-air orchestral concert • 7:30 PM</p>
-            </li>
-          </ul>
-        </section>
-
-        {/* Past Performances */}
-        <section
-          id="past-performances"
-          className="opacity-0 translate-y-12 transition-all duration-700"
-        >
-          <h2 className="text-3xl font-semibold mb-4 text-[#C5A880]">
-            Past Performances
-          </h2>
-          <ul className="space-y-2 text-[#532E1C]">
-            <li className="border-l-4 border-gray-600 pl-4">
-              <p className="font-medium">March 10, 2025 - Lincoln Center</p>
-              <p>Featured composer in NY Young Virtuosos Showcase</p>
-            </li>
-            <li className="border-l-4 border-gray-600 pl-4">
-              <p className="font-medium">
-                January 15, 2025 - Harlem School of the Arts
-              </p>
-              <p>Latin Jazz Ensemble Performance</p>
-            </li>
-            <li className="border-l-4 border-gray-600 pl-4">
-              <p className="font-medium">
-                October 22, 2024 - LaGuardia Performing Arts Center
-              </p>
-              <p>Solo Piano Recital: “Valsa Infernalis” debut</p>
-            </li>
-          </ul>
+        {/* Performances */}
+        <section id="performances" className="opacity-0 translate-y-12 transition-all duration-700">
+          <PerformancesList />
         </section>
 
         {/* Contact / Booking */}
