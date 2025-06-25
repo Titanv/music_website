@@ -6,7 +6,7 @@ import Performances from "./pages/Performances";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
-
+import Media from "./pages/Media"
 export default function App() {
   return (
     <>
@@ -14,8 +14,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/music" element={<Music />} />
-        <Route path="/videos" element={<Videos />} />
-        <Route path="/performances" element={<Performances />} />
+        <Route path="/events" element={<Performances />} />
+        <Route path="/media" element={<Media />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

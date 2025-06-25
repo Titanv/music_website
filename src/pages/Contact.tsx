@@ -5,6 +5,9 @@ export default function Contact() {
 
   return (
     <div className="max-w-xl mx-auto p-6 mt-24">
+      <p>To book Titan for an original show, please fill out the mail form below or reach out at info@titanvisionmusic.com directly.  We'll get in touch as soon as possible! Thank you!
+
+Cheers!</p>
       <h2 className="text-4xl font-semibold mb-6 text-[#C5A880]">Contact Me</h2>
       <form
         action="https://postmail.invotes.com/send"
