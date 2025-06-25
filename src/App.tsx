@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import Bio from "./pages/Bio";
 import Music from "./pages/Music";
 import Videos from "./pages/Videos";
 import Performances from "./pages/Performances";
@@ -13,6 +14,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/bio" element={<Bio />} />
         <Route path="/music" element={<Music />} />
         <Route path="/events" element={<Performances />} />
         <Route path="/media" element={<Media />} />
