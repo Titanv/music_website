@@ -1,4 +1,4 @@
-export interface PerformanceEntry {
+export interface PerformanceData {
   type: "concert" | "performance";
   title: string;
   location: string;
@@ -8,7 +8,8 @@ export interface PerformanceEntry {
 export const performances: PerformanceData[] = [
   {
     type: "concert",
-    title: "Dance on the Wings of Song | Foundation for Filipino Artists, Inc. | Dinner service",
+    title:
+      "Dance on the Wings of Song | Foundation for Filipino Artists, Inc. | Dinner service",
     location: "LaGuardia Community College",
     date: "2023-09-30",
   },
@@ -41,5 +42,5 @@ export const performances: PerformanceData[] = [
     title: "All City Concert",
     location: "City Technical College of New York",
     date: "2025-05-31",
-  }
+  },
 ];

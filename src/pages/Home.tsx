@@ -1,4 +1,4 @@
-import titan_piano_shot from "../assets/titan_piano_shot.JPG";
+import titan_piano_shot from "../assets/titan_piano_shot.jpg";
 
 export default function Home() {
   return (
@@ -35,29 +35,40 @@ export default function Home() {
             About Titan
           </h2>
           <p className="text-lg leading-relaxed text-gray-200 max-w-2xl mx-auto">
-            From Lincoln Center to underground jazz clubs, Titan Vision crafts soundscapes that breathe life into story. A bold composer and multi-instrumentalist blending heart, heritage, and innovation.
+            From Lincoln Center to underground jazz clubs, Titan Vision crafts
+            soundscapes that breathe life into story. A bold composer and
+            multi-instrumentalist blending heart, heritage, and innovation.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="bg-[#1C1C1C] p-6 rounded-lg shadow-lg hover:shadow-xl transition">
             <h3 className="text-2xl font-bold text-[#C5A880] mb-2">Live</h3>
-            <p>Captivating solo and group performances across NYC’s most iconic venues.</p>
+            <p>
+              Captivating solo and group performances across NYC’s most iconic
+              venues.
+            </p>
           </div>
 
           <div className="bg-[#1C1C1C] p-6 rounded-lg shadow-lg hover:shadow-xl transition">
             <h3 className="text-2xl font-bold text-[#C5A880] mb-2">Compose</h3>
-            <p>Genre-bending original works that blend classical structure with urban rhythm.</p>
+            <p>
+              Genre-bending original works that blend classical structure with
+              urban rhythm.
+            </p>
           </div>
 
           <div className="bg-[#1C1C1C] p-6 rounded-lg shadow-lg hover:shadow-xl transition">
             <h3 className="text-2xl font-bold text-[#C5A880] mb-2">Create</h3>
-            <p>Multimedia storytelling — visual, sonic, and immersive in every frame.</p>
+            <p>
+              Multimedia storytelling — visual, sonic, and immersive in every
+              frame.
+            </p>
           </div>
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fade-in {
           from {
             opacity: 0;
