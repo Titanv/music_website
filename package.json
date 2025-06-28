@@ -10,7 +10,6 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
-
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -34,6 +33,5 @@
     "typescript": "^5.7.2",
     "vite": "^6.0.3"
   },
-  "homepage": "titanv.github.io"
-
+  "homepage": "https://titanvisionmusic.com"
 }
