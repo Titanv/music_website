@@ -1,8 +1,10 @@
+# .github/workflows/deploy.yml
 name: Build and Deploy
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
@@ -15,19 +17,12 @@ jobs:
         with:
           version: 8
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - run: pnpm install
+      - run: pnpm build
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build the site
-        run: pnpm run build
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: gh-pages # optionally use gh-pages
